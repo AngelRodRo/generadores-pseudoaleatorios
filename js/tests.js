@@ -63,17 +63,15 @@ $(function(){
 
 	$("#pruebachicuadrado").click(function(){
 		var R = $("#R").val().split("\n");
-		var est = $("#valor_estadistico").val();
 
-		pruebachicuadrado(R,est);
+		pruebachicuadrado(R);
 
 	});
 
 	$("#KS").click(function(){
 		var R = $("#R").val().split("\n");
-		var est = $("#valor_estadistico").val();
 
-		KS(R,est);
+		KS(R);
 
 	});
 
@@ -81,12 +79,14 @@ $(function(){
 
 function deMenorAMayor(elem1, elem2) {return elem1-elem2;}
 
-function pruebachicuadrado(na,est){
+function pruebachicuadrado(na){
 
 	var n = na.length;	
 	var inv = [];
 	var m = Math.sqrt(n,1/2);
 	var m = parseInt(m);
+
+	var est = 0.5*Math.pow(1.644853627+Math.pow(2*n-1,1/2),2);
 
 	var O = [];
 	var E = [];
@@ -128,19 +128,28 @@ function pruebachicuadrado(na,est){
 		_x = _x + Math.pow(a,2)/b;
 	};
 
-	if(_x<est){
-		alert('No se puede rechazar que los numeros sigues una distribucion uniforme');
-	}
-	else
-		alert('Se rechaza los numeros porque no siguen una distribucion uniforme');
+	var msg;
 
+	if(_x<est)
+		msg ='El valor estadístico calculado X0 ' +  _x + ' es menor al estadistico correspondiente de la Chi-cuadrada ' + est + '. En consecuencia, no se puede rechazar que los números r siguen una distribución uniforme';
+
+	else
+		msg ='El valor estadístico de Chi-cuadrada ' +  est + ' es menor al valor estadistico calculado ' + _x + '. En consecuencia, se puede rechazar que los números r siguen una distribución uniforme'
+
+	alert(msg);
 
 
 }
 
-function KS(na,est){
+function KS(na){
 	
 	var n = na.length;
+
+	var est;
+	if(n<35)
+		est = 1.22/Math.pow(n+0.7,1/2)
+	else
+		est = 1.22/Math.pow(n,1/2);
 
 	na.sort(deMenorAMayor);
 	var idivn = [];
@@ -164,11 +173,13 @@ function KS(na,est){
 	D = numMayor([Dplus,Dminus]);
 
 
-	if(D<est){
-		alert('Los numeros estan distribuidos uniformemente');
-	}
+	if(D<est)
+		msg ='El valor estadístico calculado ' +  D + ' es menor al estadistico correspondiente D ' + est + '. En consecuencia, no se puede rechazar que los números r siguen una distribución uniforme';
+
 	else
-		alert('Los numeros no estan distribuidos uniformemente');
+		msg ='El valor estadístico de D ' +  est + ' es menor al valor estadistico calculado ' + D + '. En consecuencia, se puede rechazar que los números r siguen una distribución uniforme'
+
+	alert(msg);
 
 }
 
