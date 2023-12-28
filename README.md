@@ -25,6 +25,10 @@ Pruebas:
 1. Clona este repositorio en tu máquina local.
 2. Abre el archivo index.html o el archivo .html correspondiente a cada algoritmo para probar cada uno.
 
+## Demo
+
+Prueba los algoritmos aqui: https://transcendent-cat-48f533.netlify.app
+
 ## Contribuciones
 
 ¡Las contribuciones son bienvenidas! Si tienes mejoras, correcciones o nuevos algoritmos para agregar, por favor, abre un issue o envía una pull request.
